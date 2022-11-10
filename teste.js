@@ -5,13 +5,7 @@ dia de saída;
 1. Criar funções para cadastrar um hotel e uma reserva;
 */
 
-
-
-let idReserva = parseInt(prompt("Insira o (ID) da reserva"))
-let nomeReserva = prompt("Insira o (NOME DO RESPONSÁVEL) da reserva")
-let diaEntradaReserva = prompt("Insira o (Dia da Entrada) da reserva")
-let diaSaidaReserva = prompt("Insira o (Dia da Saída) da reserva")
-
+let continuar = "s"
 
 let iDShotel = []
 let nomesHotel = []
@@ -20,6 +14,7 @@ let enderecosHotel = []
 let telefonesHotel = []
 
 let idsReserva = []
+let idsHotelReserva = []
 let nomesReserva = []
 let diasEntradaReserva = []
 let diasSaidaReserva = []
@@ -32,7 +27,7 @@ function CadastrarHotel() {
     let nomeHotel = prompt("Insira o (NOME) do HOTEL")
     nomesHotel.push(nomeHotel)
 
-    let categoriaHotel = prompt("Insira a (CATEGORIA) do HOTEL")
+    let categoriaHotel = prompt("Insira a (Classificação do Hotel em estrelas de 1 a 5 do HOTEL")
     categoriasHotel.push(categoriaHotel)
 
     let enderecoHotel = prompt("Insira o (ENDEREÇO) do HOTEL")
@@ -46,20 +41,29 @@ function CadastrarHotel() {
 function CadastrarReserva() {
 
     let idReserva = parseInt(prompt("Insira o (ID) da reserva"))
+    idsReserva.push(idReserva)
+
+    let idHotelReserva = parseInt(prompt("Insira o (ID) do hotel para reserva"))
+    idsHotelReserva.push(idHotelReserva)
+
     let nomeReserva = prompt("Insira o (NOME DO RESPONSÁVEL) da reserva")
-    let diaEntradaReserva = prompt("Insira o (Dia da Entrada) da reserva")
-    let diaSaidaReserva = prompt("Insira o (Dia da Saída) da reserva")
+    nomesReserva.push(nomeReserva)
 
+    let diaEntradaReserva = parseInt(prompt("Insira o (Dia da Entrada) da reserva"))
+    diasEntradaReserva.push(diaEntradaReserva)
 
+    let dia = true
+    while (dia) {
+        let diaSaidaReserva = parseInt(prompt("Insira o (Dia da Saída) da reserva"))
+
+        if (diaSaidaReserva < diaEntradaReserva) {
+            console.log("ERRO")
+        } else {
+            dia = false
+            diasSaidaReserva.push(diaSaidaReserva)
+        }
+    }
 }
-
-
-
-
-
-
-
-
 
 /*
 2. Criar uma função que recebe como parâmetro o id do hotel e exibe na tela todas as
@@ -68,15 +72,46 @@ responsável da reserva - dia de entrada - dia de saída
 */
 
 
+
+
+function ExibirReserva(idHotel2) {
+
+    for (let contador = 0; contador < idsHotelReserva; contador++) {
+
+        if (idsHotelReserva[contador] == idHotel2) {
+
+            console.log("Nome do hotel: " + nomesHotel[contador])
+
+            console.log("Nome do responsável: " + nomesReserva[contador])
+
+            console.log("Dia de Entrada: " + diasEntradaReserva[contador])
+
+            console.log("Dia de Saída: " + diasSaidaReserva[contador])
+        }
+    }
+}
+
 /*
 3. Criar uma função que recebe como parâmetro o id de uma reserva e exibe no
 console: nome do hotel - endereço - dia de entrada - dia de saída
 */
 
+function ExibirHotel(idReservaExibir) {
 
+    for (let contador = 0; contador < idsReserva; contador++) {
 
+        if (idsReserva[contador] == idReservaExibir) {
 
+            console.log("Nome do hotel: " + nomesHotel[contador])
 
+            console.log("Endereço: " + enderecosHotel[contador])
+
+            console.log("Dia de Entrada: " + diasEntradaReserva[contador])
+
+            console.log("Dia de Saída: " + diasSaidaReserva[contador])
+        }
+    }
+}
 
 
 /*
@@ -84,13 +119,42 @@ console: nome do hotel - endereço - dia de entrada - dia de saída
 tela todas as suas reservas;
 */
 
+function ExibirPorNome(nomeResponsavelExibir) {
+
+    for (let contador = 0; contador < nomesReserva.length; contador++) {
+
+        if (nomesReserva[contador] == nomeResponsavelExibir) {
+
+            console.log("Nome do hotel: " + nomesHotel[contador])
+
+            console.log("Dia de Entrada: " + diasEntradaReserva[contador])
+
+            console.log("Dia de Saída: " + diasSaidaReserva[contador])
+        }
+    }
+}
 
 /*
 5. Criar uma função que recebe como parâmetro uma categoria e retorna um array
 com todos os hotéis nessa categoria;
 */
 
+let todosNomesHotel = []
+let index = 0
 
+function ExibirCategoria(avaliacaoExibir) {
+
+    for (let contador = 0; contador < categoriasHotel.length; contador++) {
+
+        if (categoriasHotel[contador] == avaliacaoExibir) {
+
+            todosNomesHotel[index] = nomesHotel[contador]
+
+            index++
+        }
+    }
+    return todosNomesHotel
+}
 
 /*
 6. Criar uma função que recebe o id de um hotel e um telefone como parâmetro, a
@@ -101,3 +165,40 @@ Algumas validações devem ser feitas na hora de fazer os cadastros:
 ● No cadastro de uma reserva o id do hotel deve ser válido, ou seja, não deve permitir
 o cadastro de um hotel que não esteja no sistema;
 */
+
+function Atualizar(idAtualizar, telefoneAtualizar) {
+
+    for (let contador = 0; contador < iDShotel.length; contador++) {
+
+        if (idAtualizar == iDShotel[contador]) {
+            telefonesHotel[contador] = telefoneAtualizar
+        }
+    }
+}
+
+while(continuar == "s"){
+
+    let opcao = prompt("Insira uma opção para ser executada, Cadastrar Hotel(1), Cadastrar Reserva(2), Exibir as Reservas pelo ID do hotel(3), Exibir informações do hotel pelo ID da reserva(4), Exibir as reservas pelo nome do responsável(5), Exibir hoteis pela Avaliação(6), Atualizar um número de telefone(7)")
+
+    CadastrarHotel()
+
+    CadastrarReserva()
+
+    let idHotel2 = parseInt(prompt("Insira o ID do hotel para exibir as reservas"))
+    ExibirReserva(idHotel2)
+
+    let idReservaExibir = parseInt(prompt("Insira o ID da reserva para exibir as informações do hotel"))
+    ExibirHotel(idReservaExibir)
+
+    let nomeResponsavelExibir = prompt("Insira um nome para exibir as suas reservas")
+    ExibirPorNome(nomeResponsavelExibir)
+
+    let avaliacaoExibir = prompt("Insira uma avaliação de 1 a 5 para exibir todo Hoteis com a mesma avaliação")
+    console.log(ExibirCategoria(avaliacaoExibir))
+
+    let idAtualizar = parseInt(prompt("Insira um ID Hotel para atualizar o telefone"))
+    let telefoneAtualizar = prompt("Insira o telefone atualizado")
+    Atualizar(idAtualizar, telefoneAtualizar)
+
+
+}

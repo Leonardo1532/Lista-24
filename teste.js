@@ -176,29 +176,54 @@ function Atualizar(idAtualizar, telefoneAtualizar) {
     }
 }
 
-while(continuar == "s"){
+while (continuar == "s") {
 
     let opcao = prompt("Insira uma opção para ser executada, Cadastrar Hotel(1), Cadastrar Reserva(2), Exibir as Reservas pelo ID do hotel(3), Exibir informações do hotel pelo ID da reserva(4), Exibir as reservas pelo nome do responsável(5), Exibir hoteis pela Avaliação(6), Atualizar um número de telefone(7)")
 
-    CadastrarHotel()
+    switch (opcao) {
+        case "1":
+            CadastrarHotel()
+            console.log("Hotel Cadastrado com sucesso!")
+            break;
 
-    CadastrarReserva()
+        case "2":
+            CadastrarReserva()
+            console.log("Reserva Cadastrada com sucesso!")
+            break;
 
-    let idHotel2 = parseInt(prompt("Insira o ID do hotel para exibir as reservas"))
-    ExibirReserva(idHotel2)
+        case "3":
+            let idHotel2 = parseInt(prompt("Insira o ID do hotel para exibir as reservas"))
+            ExibirReserva(idHotel2)
+            break;
 
-    let idReservaExibir = parseInt(prompt("Insira o ID da reserva para exibir as informações do hotel"))
-    ExibirHotel(idReservaExibir)
+        case "4":
+            let idReservaExibir = parseInt(prompt("Insira o ID da reserva para exibir as informações do hotel"))
+            ExibirHotel(idReservaExibir)
+            break;
 
-    let nomeResponsavelExibir = prompt("Insira um nome para exibir as suas reservas")
-    ExibirPorNome(nomeResponsavelExibir)
+        case "5":
+            let nomeResponsavelExibir = prompt("Insira um nome para exibir as suas reservas")
+            ExibirPorNome(nomeResponsavelExibir)
+            break;
 
-    let avaliacaoExibir = prompt("Insira uma avaliação de 1 a 5 para exibir todo Hoteis com a mesma avaliação")
-    console.log(ExibirCategoria(avaliacaoExibir))
+        case "6":
+            let avaliacaoExibir = prompt("Insira uma avaliação de 1 a 5 para exibir todo Hoteis com a mesma avaliação")
+            console.log(ExibirCategoria(avaliacaoExibir))
+            break;
 
-    let idAtualizar = parseInt(prompt("Insira um ID Hotel para atualizar o telefone"))
-    let telefoneAtualizar = prompt("Insira o telefone atualizado")
-    Atualizar(idAtualizar, telefoneAtualizar)
+        case "7":
+            let idAtualizar = parseInt(prompt("Insira um ID Hotel para atualizar o telefone"))
+            let telefoneAtualizar = prompt("Insira o telefone atualizado")
+            Atualizar(idAtualizar, telefoneAtualizar)
+            console.log("Telefone atualizado com sucesso!")
+            break;
 
-
+        default:
+            console.log("Opção Inválida")
+            break;
+    }
+    let desejaContinuar = prompt("Deseja continuar fazendo execuções?  s ou n")
+    if(desejaContinuar != "s"){
+        continuar = "n"
+    }
 }
